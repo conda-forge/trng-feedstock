@@ -12,7 +12,7 @@ source:
 build:
   number: 0
   skip: True  # [win]
-  script: "mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$PREFIX .. && make install"
+  script: "mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_INSTALL_LIBDIR=lib .. && make install"
 
 requirements:
   build:

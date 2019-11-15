@@ -12,11 +12,12 @@ source:
 build:
   number: 0
   skip: True  # [win]
-  script: "./configure --prefix=$PREFIX && make install"
+  script: "mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$PREFIX .. && make install"
 
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - cmake
     - make
 
 test:

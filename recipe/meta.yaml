@@ -1,5 +1,5 @@
 {% set name = "trng" %}
-{% set version = "4.21" %}
+{% set version = "4.22" %}
 
 package:
   name: {{ name }}
@@ -7,16 +7,17 @@ package:
 
 source:
   url: https://www.numbercrunch.de/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 03f9fbbb2b99fa12cc9f7a6b768089bc62895da89cc2578d94c86c67840e560c
+  sha256: 6acff0a6136e41cbf0b265ae1f4392c8f4394ecfe9803bc98255e9e8d926f3d8
 
 build:
   number: 0
   skip: True  # [win]
-  script: "./configure --prefix=$PREFIX && make install"
+  script: "mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_INSTALL_LIBDIR=lib .. && make install"
 
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - cmake
     - make
 
 test:

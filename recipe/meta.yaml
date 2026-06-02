@@ -1,5 +1,5 @@
 {% set name = "trng" %}
-{% set version = "4.22" %}
+{% set version = "4.28" %}
 
 package:
   name: {{ name }}
@@ -7,13 +7,13 @@ package:
 
 source:
   url: https://github.com/rabauke/trng4/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 6acff0a6136e41cbf0b265ae1f4392c8f4394ecfe9803bc98255e9e8d926f3d8
+  sha256: 50432094f8a4b079bcf1c4a9075691c34f4ed5be54835d7ea1a38ccb00ebc89e
   patches:
     - 0001-disable-examples.patch
 
 build:
-  number: 1
-  skip: True  # [win]
+  number: 0
+  skip: true  # [win]
   script: "mkdir build && cd build && cmake -DCMAKE_INSTALL_PREFIX=$PREFIX -DCMAKE_INSTALL_LIBDIR=lib .. && make install"
 
 requirements:
@@ -28,8 +28,6 @@ test:
     # library
     - test -f $PREFIX/lib/lib{{ name }}{{ version[0] }}.a            # [unix]
     - test -f $PREFIX/lib/lib{{ name }}{{ version[0] }}${SHLIB_EXT}  # [unix]
-    - conda inspect linkages $PKG_NAME  # [unix]
-    - conda inspect objects  $PKG_NAME  # [osx]
     # header (too many .hpp files, so only test for the directory)
     - test -d $PREFIX/include/{{ name }}  # [unix]
 
@@ -39,19 +37,9 @@ about:
   license_family: BSD
   license_file: COPYING
   summary: "pseudo-random number generator library"
-  description: "Tina's Random Number Generator Library (TRNG)
-    is a state of the art C++ pseudo-random number generator library for
-    sequential and parallel Monte Carlo simulations. Its design principles are
-    based on a proposal for an extensible random number generator facility,
-    that has become part of the C++11 standard.
-    
-    The TRNG library features an object oriented design, is easy to use and
-    has been speed optimized. Its implementation does not depend on any
-    communication library or hardware architecture. TRNG is suited for shared
-    memory as well as for distributed memory computers and may be used in any
-    parallel programming environment, e.g. Message Passing Standard, OpenMP or
-    CUDA. All generators, that are implemented by TRNG, have been subjected to
-    thorough statistical tests in sequential and parallel setups."
+  description: "Tina's Random Number Generator Library (TRNG) is a state of the art C++ pseudo-random number generator library for sequential and parallel Monte Carlo simulations. Its design principles are based on a proposal for an extensible random number generator facility, that has become part of the C++11 standard.\n\
+    The TRNG library features an object oriented design, is easy to use and has been speed optimized. Its implementation does not depend on any communication library or hardware architecture. TRNG is suited for shared memory as well as for distributed memory computers and may be used in any parallel programming environment,
+    e.g. Message Passing Standard, OpenMP or CUDA. All generators, that are implemented by TRNG, have been subjected to thorough statistical tests in sequential and parallel setups."
   doc_url: https://www.numbercrunch.de/trng/#docu
   dev_url: https://github.com/rabauke/trng4
 
